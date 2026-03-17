@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LFDA — Living Fully in Digital Age</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf7f2;
+    --surface: #ede6d8;
+    --card: #ffffff;
+    --border: rgba(100,70,40,0.25);
+    --accent: #a85e1e;
+    --accent-light: #f0d4b0;
+    --text: #0d0806;
+    --muted: #2e1f12;
+    --green: #3a5e28;
+    --green-light: #d0e0c8;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-weight: 400;
+    line-height: 1.85;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 2.5rem;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    font-size: 12px; letter-spacing: 0.08em;
+    color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    padding: 5rem 2.5rem 5rem;
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 24px; height: 1px; background: var(--accent);
+  }
+  .hero-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(2rem, 3.8vw, 3.2rem);
+    line-height: 1.25;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+  .hero-title em { font-style: italic; color: var(--accent); }
+  .hero-body {
+    font-size: 15px; color: var(--muted); line-height: 1.95;
+    margin-bottom: 2rem; font-weight: 400;
+  }
+  .hero-btns { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .btn-fill {
+    display: inline-block;
+    background: var(--accent); color: #fff;
+    padding: 0.7rem 1.8rem; font-size: 13px;
+    border-radius: 100px; text-decoration: none;
+    transition: opacity 0.2s; letter-spacing: 0.04em;
+  }
+  .btn-fill:hover { opacity: 0.85; }
+  .btn-outline {
+    display: inline-block;
+    border: 1.5px solid var(--border); color: var(--muted);
+    padding: 0.7rem 1.8rem; font-size: 13px;
+    border-radius: 100px; text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-visual {
+    background: var(--surface);
+    border-radius: 24px;
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+  }
+  .hero-quote {
+    font-family: 'Lora', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+  .hero-quote-attr {
+    font-size: 12px; color: var(--muted); letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .tag {
+    font-size: 11px; padding: 0.35rem 0.85rem;
+    border-radius: 100px; letter-spacing: 0.04em;
+    background: var(--accent-light); color: var(--accent);
+  }
+  .tag.green { background: var(--green-light); color: var(--green); }
+
+  /* SECTION BASE */
+  .section { padding: 5rem 2.5rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem;
+  }
+  .eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--accent); }
+  .sec-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 600; line-height: 1.25;
+    margin-bottom: 0.8rem;
+  }
+  .sec-sub { font-size: 15px; color: var(--muted); max-width: 520px; }
+
+  /* ABOUT */
+  .about-bg { background: var(--surface); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 3rem; }
+  .about-text { font-size: 15px; color: var(--muted); line-height: 1.95; font-weight: 400; }
+  .about-text p + p { margin-top: 1.1em; }
+  .about-text strong { color: var(--text); font-weight: 500; }
+  .about-stats { display: flex; flex-direction: column; gap: 1rem; }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.4rem 1.6rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .stat-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .stat-label { font-size: 12px; color: var(--muted); margin-bottom: 0.25rem; }
+  .stat-val { font-size: 15px; font-weight: 500; color: var(--text); }
+
+  /* PLATFORMS */
+  .platform-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 3rem; }
+  .platform-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: box-shadow 0.25s, transform 0.2s;
+  }
+  .platform-card:hover { box-shadow: 0 6px 24px rgba(160,130,100,0.12); transform: translateY(-3px); }
+  .p-icon { font-size: 26px; margin-bottom: 1rem; }
+  .p-name { font-size: 15px; font-weight: 500; margin-bottom: 0.3rem; }
+  .p-desc { font-size: 13px; color: var(--muted); margin-bottom: 1.2rem; }
+  .p-link {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-size: 12px; color: var(--accent); text-decoration: none;
+    border-bottom: 1px solid var(--accent-light); padding-bottom: 1px;
+    transition: border-color 0.2s;
+  }
+  .p-link:hover { border-color: var(--accent); }
+
+  /* CONTENTS */
+  .contents-bg { background: var(--surface); }
+  .content-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 3rem; }
+  .c-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+  }
+  .c-card-top {
+    display: flex; align-items: center; gap: 0.7rem;
+    margin-bottom: 1rem;
+  }
+  .c-emoji { font-size: 22px; }
+  .c-title { font-size: 15px; font-weight: 500; }
+  .c-tagline { font-size: 12px; color: var(--accent); margin-bottom: 0.9rem; font-style: italic; }
+  .c-body { font-size: 13px; color: var(--muted); line-height: 1.85; font-weight: 400; }
+
+  /* VALUES */
+  .values-list { margin-top: 3rem; }
+  .v-item {
+    display: grid; grid-template-columns: 56px 200px 1fr;
+    gap: 2rem; padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .v-item:first-child { border-top: 1px solid var(--border); }
+  .v-num {
+    font-family: 'Lora', serif;
+    font-size: 1.8rem; font-style: italic;
+    color: var(--accent-light);
+    line-height: 1;
+    padding-top: 2px;
+  }
+  .v-en { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 0.3rem; }
+  .v-ja { font-size: 11px; color: var(--muted); }
+  .v-body { font-size: 13px; color: var(--muted); line-height: 1.95; font-weight: 400; }
+
+  /* JOIN */
+  .join-section { background: var(--accent-light); }
+  .join-inner {
+    max-width: 680px; margin: 0 auto; text-align: center;
+    padding: 5rem 2.5rem;
+  }
+  .join-inner .eyebrow { justify-content: center; }
+  .join-inner .eyebrow::before { display: none; }
+  .join-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+    font-weight: 600; line-height: 1.25;
+    margin: 1rem 0 1.2rem;
+  }
+  .join-body { font-size: 15px; color: var(--muted); margin-bottom: 2rem; }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 2.5rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--muted);
+  }
+
+  /* ANIM */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.5s ease 0.1s both; }
+  .hero-title   { animation: fadeUp 0.6s ease 0.2s both; }
+  .hero-body    { animation: fadeUp 0.6s ease 0.35s both; }
+  .hero-btns    { animation: fadeUp 0.6s ease 0.45s both; }
+  .hero-visual  { animation: fadeUp 0.7s ease 0.3s both; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; gap: 2.5rem; padding: 3rem 1.2rem; }
+    .section { padding: 3.5rem 1.2rem; }
+    .about-grid, .platform-grid, .content-cards { grid-template-columns: 1fr; }
+    .v-item { grid-template-columns: 40px 1fr; }
+    .v-body { grid-column: 2; }
+    footer { flex-direction: column; gap: 0.6rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">LF<span>D</span>A</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#contents">Contents</a>
+    <a href="#values">Values</a>
+    <a href="#join">Join</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <p class="hero-eyebrow">Living Fully in Digital Age</p>
+    <h1 class="hero-title">テクノロジーを使って<br>幸せに生きる、<br><em>ワクワクするデジタル空間</em>を作る</h1>
+    <p class="hero-body">AI時代を生きる若者からのデジタルメディア。アルゴリズムに流されるのではなく、自分で生活を選び取るための問いを届ける。</p>
+    <div class="hero-btns">
+      <a href="#about" class="btn-fill">詳しく見る</a>
+      <a href="https://note.com/lfda_digitalwell" class="btn-outline" target="_blank">noteで読む</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <p class="hero-quote">「問いを立て、心を揺らし、オルタナティブを実装する」</p>
+    <p class="hero-quote-attr">— LFDA Mission</p>
+    <div class="tag-row">
+      <span class="tag">デジタルウェルビーイング</span>
+      <span class="tag green">Z世代</span>
+      <span class="tag">深い問い</span>
+      <span class="tag green">テクノロジー</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section about-bg" id="about">
+  <div class="section-inner">
+    <p class="eyebrow">About</p>
+    <h2 class="sec-title">私たちについて</h2>
+    <p class="sec-sub">溢れるデジタルツールをただ紹介するのではなく、Deep Questions を軸に考えるプラットフォーム。</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>LFDA（Living Fully in Digital Age）は、<strong>AI時代を生きる若者からのデジタルメディア</strong>です。</p>
+        <p>溢れるデジタルツールをただ紹介するのではなく、<strong>Deep Questions（深い問い）</strong>を軸に、テクノロジーと社会の関係を一緒に考えるプラットフォームを目指しています。</p>
+        <p>Web 2.0が生み出した「無意識の消費」という構造的問題に向き合い、ユーザー自身がシステムを選び取る力を育てること——それがLFDAの根底にある問いです。</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-icon">🔭</div>
+          <div>
+            <div class="stat-label">Vision</div>
+            <div class="stat-val">テクノロジーを使って幸せに生きる、ワクワクするデジタル空間を作る</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🧭</div>
+          <div>
+            <div class="stat-label">Mission</div>
+            <div class="stat-val">問いを立て、心を揺らし、オルタナティブを実装する。</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📡</div>
+          <div>
+            <div class="stat-label">Platform</div>
+            <div class="stat-val">Instagram · note · Podcast</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section class="section" id="platforms">
+  <div class="section-inner">
+    <p class="eyebrow">Where to find us</p>
+    <h2 class="sec-title">どこで読む・聴く</h2>
+    <div class="platform-grid">
+      <div class="platform-card">
+        <div class="p-icon">📸</div>
+        <div class="p-name">Instagram</div>
+        <div class="p-desc">各種アップデート・日常の発信。気軽にフォローしてください。</div>
+        <a class="p-link" href="https://www.instagram.com/fillingyourdigitalwellbeing/" target="_blank">フォローする →</a>
+      </div>
+      <div class="platform-card">
+        <div class="p-icon">📝</div>
+        <div class="p-name">note</div>
+        <div class="p-desc">長編記事・深掘りコンテンツ。じっくり読みたいときはこちら。</div>
+        <a class="p-link" href="https://note.com/genial_iris250" target="_blank">記事を読む →</a>
+      </div>
+      <div class="platform-card">
+        <div class="p-icon">🎙</div>
+        <div class="p-name">Podcast</div>
+        <div class="p-desc">編集部の対話・音声コンテンツ。帰り道のお供に。</div>
+        <div style="display:flex; flex-direction:column; gap:0.6rem; margin-top:1.2rem;">
+          <a class="p-link" href="https://podcasts.apple.com/jp/podcast/%E5%B8%B0%E3%82%8A%E9%81%93%E3%81%AEtech-talk-%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%E3%82%A6%E3%82%A7%E3%83%AB%E3%83%93%E3%83%BC%E3%82%A4%E3%83%B3%E3%82%B0%E5%AD%A6%E7%94%9F%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2lfda/id1874514411" target="_blank">Apple Podcasts →</a>
+          <a class="p-link" href="https://open.spotify.com/show/3hRAPg1USA102GEQKlYGLj" target="_blank">Spotify →</a>
+          <a class="p-link" href="https://listen.style/p/lfda_digitalwellbeing" target="_blank">LISTEN →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENTS -->
+<section class="section contents-bg" id="contents">
+  <div class="section-inner">
+    <p class="eyebrow">Contents</p>
+    <h2 class="sec-title">コンテンツの3本柱</h2>
+    <div class="content-cards">
+      <div class="c-card">
+        <div class="c-card-top">
+          <span class="c-emoji">🛠</span>
+          <span class="c-title">Daily Hacks</span>
+        </div>
+        <div class="c-tagline">「毎日の悩みを、ツールで解決する」</div>
+        <p class="c-body">日常の具体的な課題に対し、実用的なデジタルツールやワークフローを提案するシリーズ。勉強・就活・クリエイティブワークなど、同世代のリアルな悩みを起点にしています。</p>
+      </div>
+      <div class="c-card">
+        <div class="c-card-top">
+          <span class="c-emoji">🔍</span>
+          <span class="c-title">Tools & Trends</span>
+        </div>
+        <div class="c-tagline">「知らなかったことを、知りたくなる。」</div>
+        <p class="c-body">注目のツール・アプリ・テックトレンドを実際に体験しながら深掘り。「役に立つから使う」ではなく、「面白いから探求する」という好奇心が原動力です。</p>
+      </div>
+      <div class="c-card">
+        <div class="c-card-top">
+          <span class="c-emoji">🎤</span>
+          <span class="c-title">Voices</span>
+        </div>
+        <div class="c-tagline">「編集部の、頭の中。」</div>
+        <p class="c-body">LFDAのメンバーが話しながら考えるPodcastシリーズ。うまくまとまってなくていい。AIには生成できない、人間の声と温度をそのまま届けます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section" id="values">
+  <div class="section-inner">
+    <p class="eyebrow">Values</p>
+    <h2 class="sec-title">5つの行動指針</h2>
+    <div class="values-list">
+      <div class="v-item">
+        <div class="v-num">01</div>
+        <div>
+          <div class="v-en">Psychological Playground</div>
+          <div class="v-ja">心理的遊び場・安全な場所</div>
+        </div>
+        <div class="v-body">「未完成」こそ、最高の素材。本音、失敗、ダサい自分——それらを安心して晒せる場所から、本当のクリエイティビティは生まれる。失敗や未完成を笑い飛ばせる「安心」があるからこそ、私たちはどこまでも遠くへ行ける。</div>
+      </div>
+      <div class="v-item">
+        <div class="v-num">02</div>
+        <div>
+          <div class="v-en">Prototyping First</div>
+          <div class="v-ja">衝動を、すぐ形にする</div>
+        </div>
+        <div class="v-body">100点の合意を待たない。思いついた瞬間に試し、形にする。「まずはやってみた」という事実が、チームを前進させる。空気を読む前に、手を動かす。</div>
+      </div>
+      <div class="v-item">
+        <div class="v-num">03</div>
+        <div>
+          <div class="v-en">Raw Experience</div>
+          <div class="v-ja">自分の人生から、言葉を</div>
+        </div>
+        <div class="v-body">借り物の言葉を捨て、自分の「生」から語る。AIが語れる一般論ではなく、自分の日常に根ざした実感（Grounded in Life）を大事にする。日常の小さな手ざわりを大切にすることが、一番強く誰かの心を揺さぶる。</div>
+      </div>
+      <div class="v-item">
+        <div class="v-num">04</div>
+        <div>
+          <div class="v-en">Long-Term Frontier</div>
+          <div class="v-ja">未来を生きる当事者</div>
+        </div>
+        <div class="v-body">「俺らの方が未来は長い」という覚悟。大学生という今だけの視点ではなく、この先数十年を生きる当事者として生存レベルの課題に向き合う。数十年後に「あの時の選択が世界を変えた」と胸を張れるように。</div>
+      </div>
+      <div class="v-item">
+        <div class="v-num">05</div>
+        <div>
+          <div class="v-en">Niche & Youthful Insight</div>
+          <div class="v-ja">小さな熱狂を、愛し抜く</div>
+        </div>
+        <div class="v-body">大人が捨てた隙間に、宝石を見つける。企業がマネタイズできないニッチな熱狂や、若者特有のラフで鋭い感性を信じる。誰にも媚びない「Youthful Lens」で、世の中に新しい選択肢を提示する。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section class="join-section" id="join">
+  <div class="join-inner">
+    <p class="eyebrow" style="justify-content:center;">Join Us</p>
+    <h2 class="join-title">ともに考え、作りませんか。</h2>
+    <p class="join-body">LFDAはライター・デザイナー・編集者として関わりたいメンバーを歓迎しています。まずはInstagram DMで気軽にご連絡ください。</p>
+    <a href="https://www.instagram.com/fillingyourdigitalwellbeing/" class="btn-fill" target="_blank">Instagram DM で連絡する</a>
+  </div>
+</section>
+
+<footer>
+  <span>© LFDA — Living Fully in Digital Age</span>
+  <span>lfda.digitalwellbeing@gmail.com</span>
+</footer>
+
+</body>
+</html>
